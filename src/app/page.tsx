@@ -32,7 +32,7 @@ export default function Home() {
         <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">조성빈</h1>
         <p className="mt-6 text-lg leading-relaxed text-muted sm:text-xl">
           Spring Boot와 FastAPI로 서비스를 만들어 온 백엔드 개발자입니다.
-          <br className="hidden sm:block" /> 지금은 출시를 앞둔 위치 기반 서비스 Trender의 백엔드를 개발하고 있습니다.
+          <br className="hidden sm:block" /> 지금은 출시를 앞둔 위치 기반 서비스 Keepsa의 백엔드를 개발하고 있습니다.
         </p>
         <p className="mt-4 text-sm text-faint">단국대학교 소프트웨어학과 · SQLD · ADsP</p>
         <div className="mt-8 flex flex-wrap gap-3 text-sm">

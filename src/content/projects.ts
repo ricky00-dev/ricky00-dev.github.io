@@ -26,8 +26,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "trender",
-    name: "Trender",
+    slug: "keepsa",
+    name: "Keepsa",
     tagline: "SNS·AI로 장소를 발견하고 동선을 기록·공유하는 위치 기반 서비스",
     period: "2026.07 – 진행 중 (출시 준비)",
     team: "팀 프로젝트",
