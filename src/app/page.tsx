@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Diff } from "@/components/Diff";
 import { ProjectCover } from "@/components/ProjectCover";
 import { projects } from "@/content/projects";
 
@@ -55,7 +54,6 @@ export default function Home() {
         <SectionTitle title="프로젝트" />
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {projects.map((p) => {
-            const diff = p.cases.flatMap((c) => c.diff ?? []).slice(0, 2);
             return (
               <Link
                 key={p.slug}
@@ -77,11 +75,6 @@ export default function Home() {
                   </div>
                   <p className="mt-1 font-medium">{p.headline}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{p.tagline}</p>
-                  {diff.length > 0 && (
-                    <div className="mt-4">
-                      <Diff rows={diff} compact />
-                    </div>
-                  )}
                   <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-5 text-xs text-muted">
                     {p.stack.slice(0, 5).map((s) => (
                       <span key={s} className="flex items-center gap-1.5">
