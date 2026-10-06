@@ -6,6 +6,7 @@ export type Case = {
   result: string;
   refs: string;
   image?: Shot;
+  diff?: { label: string; before: string; after: string }[];
 };
 
 export type Shot = { src: string; caption: string; phone?: boolean };
@@ -124,6 +125,11 @@ export const projects: Project[] = [
         result:
           "평가 DB(70만 행)에서 전체를 읽는 검색 **39건 → 2건**, 검색당 읽은 블록 p95 **115k → 9.4k**, 정확도는 그대로. 운영에서 '블루 보틀' **1.2초 → 178ms**.",
         refs: "PR #102 · #109",
+        diff: [
+          { label: "'블루 보틀' 검색 (운영)", before: "1.2s", after: "178ms" },
+          { label: "표 전체를 읽는 검색 (평가 DB)", before: "39건", after: "2건" },
+          { label: "검색당 읽은 블록 p95", before: "115k", after: "9.4k" },
+        ],
       },
       {
         title: "운영 콘솔 2단계 인증과 권한 분리",
@@ -137,6 +143,9 @@ export const projects: Project[] = [
         ],
         result: "TOTP 테스트 **16개**, 실제 발급 토큰을 쓰는 운영자 로그인 테스트 **13개**.",
         refs: "PR #85 · #83 · #86",
+        diff: [
+          { label: "운영 콘솔 로그인", before: "비밀번호", after: "비밀번호 + TOTP" },
+        ],
       },
       {
         title: "신고가 실제 조치로 이어지도록 모더레이션 재설계",
@@ -150,6 +159,10 @@ export const projects: Project[] = [
         ],
         result: "새 테스트 **26개**. 숨김·정지 검사를 일부러 빼면 **4개가 실패**하는 것으로 테스트가 실제로 결함을 잡는지 확인했습니다.",
         refs: "PR #84 · #85",
+        diff: [
+          { label: "조치 완료된 신고 글", before: "계속 노출", after: "숨김" },
+          { label: "신고 테이블", before: "2개", after: "1개" },
+        ],
         image: { src: "/images/keepsa/admin-reports.jpg", caption: "운영 콘솔 신고 처리 화면. 2단계 인증을 거친 운영자만 접근하고, 처리 내역은 운영 기록에 남습니다." },
       },
       {
@@ -164,6 +177,10 @@ export const projects: Project[] = [
         ],
         result: "체류 → 자동 인증 → 코스 반영까지 end-to-end 테스트로 검증했습니다.",
         refs: "PR #44 · #46 · #53",
+        diff: [
+          { label: "자동 방문 인증", before: "동작 안 함", after: "동작" },
+          { label: "근처를 스쳐 지나간 경우", before: "인증됨", after: "10분 미만 제외" },
+        ],
       },
       {
         title: "인덱스 58개 감사",
@@ -176,6 +193,10 @@ export const projects: Project[] = [
         ],
         result: "쓰이지 않던 인덱스 **1개 수정**, 중복 **4개 제거**, 누락 **1개 추가**.",
         refs: "PR #51",
+        diff: [
+          { label: "쓰이지 않던 부분 인덱스", before: "1개", after: "0개" },
+          { label: "중복 인덱스", before: "4개", after: "0개" },
+        ],
       },
       {
         title: "가끔 깨지던 CI에서 찾은 타임존 버그",
@@ -188,6 +209,10 @@ export const projects: Project[] = [
         ],
         result: "간헐적 실패가 사라졌고, 운영 통계 버그도 함께 고쳤습니다.",
         refs: "PR #52",
+        diff: [
+          { label: "통계가 틀리는 시간", before: "매일 9시간", after: "0" },
+          { label: "자정 무렵 CI", before: "간헐 실패", after: "통과" },
+        ],
       },
       {
         title: "배포 관문과 모니터링의 거짓 경보 줄이기",
@@ -201,6 +226,10 @@ export const projects: Project[] = [
         ],
         result: "실제 장애는 **6분 안에** 알림이 가고, 배포 관문이 늦어지는 경우도 최대 60초입니다.",
         refs: "PR #106 · #119",
+        diff: [
+          { label: "배포 중 서버 다운 알림", before: "즉시 발송", after: "60초 뒤 재확인 후" },
+          { label: "CI 반영 지연 시 배포", before: "차단", after: "재확인 후 통과" },
+        ],
       },
       {
         title: "음성 리뷰 비동기 처리와 완료 알림",
@@ -329,6 +358,9 @@ export const projects: Project[] = [
         ],
         result: "자모를 입력하는 단계부터 결과가 매칭됩니다.",
         refs: "PR #25",
+        diff: [
+          { label: "입력 중 'ㅎㅏㄱ'", before: "결과 없음", after: "매칭" },
+        ],
       },
       {
         title: "Redis ZSET 인기 검색어와 차등 캐시",
@@ -341,6 +373,9 @@ export const projects: Project[] = [
         ],
         result: "탐색 API가 DB 대신 캐시에서 응답합니다.",
         refs: "PR #22 · #42",
+        diff: [
+          { label: "탐색 목록 조회", before: "요청마다 DB", after: "Redis 캐시" },
+        ],
       },
       {
         title: "FCM 푸시와 인박스 알림",

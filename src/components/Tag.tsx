@@ -1,22 +1,18 @@
-const colors: Record<string, string> = {
-  Performance: "bg-amber-50 text-amber-700 ring-amber-200",
-  Security: "bg-rose-50 text-rose-700 ring-rose-200",
-  Backend: "bg-indigo-50 text-indigo-700 ring-indigo-200",
-  Debugging: "bg-sky-50 text-sky-700 ring-sky-200",
-  Database: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-  Infra: "bg-slate-100 text-slate-700 ring-slate-200",
-  Architecture: "bg-violet-50 text-violet-700 ring-violet-200",
-  Search: "bg-teal-50 text-teal-700 ring-teal-200",
-  Caching: "bg-orange-50 text-orange-700 ring-orange-200",
-  Messaging: "bg-cyan-50 text-cyan-700 ring-cyan-200",
-  Realtime: "bg-cyan-50 text-cyan-700 ring-cyan-200",
-};
-
 export function Tag({ name }: { name: string }) {
-  const c = colors[name] ?? "bg-stone-100 text-stone-700 ring-stone-200";
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${c}`}>
-      {name}
+    <span className="inline-flex items-center rounded-md border border-line bg-surface px-2 py-0.5 font-mono text-[11px] text-muted">
+      {name.toLowerCase()}
+    </span>
+  );
+}
+
+export function MergedBadge() {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-white">
+      <svg viewBox="0 0 16 16" className="h-3 w-3 fill-current" aria-hidden>
+        <path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z" />
+      </svg>
+      Merged
     </span>
   );
 }

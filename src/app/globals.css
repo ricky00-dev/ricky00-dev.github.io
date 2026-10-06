@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #fafaf9;
+  --bg: #f7f7f4;
   --surface: #ffffff;
-  --surface-2: #f4f4f2;
-  --border: #e7e6e3;
-  --fg: #1a1a19;
-  --muted: #55534e;
-  --faint: #8f8c85;
-  --accent: #4338ca;
-  --accent-soft: #eef0ff;
+  --surface-2: #f0f0ec;
+  --border: #e2e1dc;
+  --fg: #17181c;
+  --muted: #4f5157;
+  --faint: #8a8b90;
+  --accent: #1a7f37;
+  --accent-soft: #e6f4ea;
+  --add-bg: #dafbe1;
+  --add-fg: #116329;
+  --del-bg: #ffebe9;
+  --del-fg: #a40e26;
 }
 
 @theme inline {
@@ -22,6 +26,10 @@
   --color-faint: var(--faint);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-add-bg: var(--add-bg);
+  --color-add-fg: var(--add-fg);
+  --color-del-bg: var(--del-bg);
+  --color-del-fg: var(--del-fg);
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
@@ -30,7 +38,6 @@ html {
   background: var(--bg);
   color-scheme: light;
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
 }
 
 body {
@@ -42,12 +49,17 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.03);
+  border-radius: 0.75rem;
+}
+
+/* faint dotted grid used behind the hero */
+.grid-bg {
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 12%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
