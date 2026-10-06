@@ -5,11 +5,26 @@ export type Case = {
   solution: string[];
   result: string;
   refs: string;
+  image?: Shot;
 };
+
+export type Shot = { src: string; caption: string; phone?: boolean };
+
+export type Layer = { label: string; nodes: { name: string; note?: string; mine?: boolean }[] };
 
 export type Project = {
   slug: string;
   name: string;
+  category: string;
+  headline: string;
+  contribution: string;
+  outcome: string;
+  links: { label: string; href: string }[];
+  cover?: string;
+  coverPhones?: string[];
+  coverMetric?: { value: string; label: string };
+  gallery?: Shot[];
+  architecture: Layer[];
   tagline: string;
   period: string;
   team: string;
@@ -28,6 +43,60 @@ export const projects: Project[] = [
   {
     slug: "keepsa",
     name: "Keepsa",
+    category: "서비스 개발·운영",
+    headline: "검색 성능부터 운영 콘솔 보안까지",
+    contribution:
+      "백엔드 API 구현, 검색 성능·품질 개선, 운영 콘솔 인증·권한·모더레이션, 배포 관문과 모니터링 보완",
+    outcome:
+      "두 글자 검색 **1.2초 → 178ms**(운영), 평가 DB에서 전체를 읽는 검색 **39건 → 2건**, 운영 콘솔 **TOTP 2단계 인증** 도입",
+    links: [],
+    coverMetric: { value: "1.2s → 178ms", label: "두 글자 검색 응답 · 운영" },
+    coverPhones: ["/images/keepsa/map.jpg", "/images/keepsa/search.jpg"],
+    gallery: [
+      { src: "/images/keepsa/map.jpg", caption: "지도 홈. 저장한 장소와 방문한 곳을 지도에서 보고, 장소·주소로 검색합니다.", phone: true },
+      { src: "/images/keepsa/search.jpg", caption: "초성 검색 'ㅅㅌㅂㅅ' → 스타벅스. 가까운 순으로 보여줍니다.", phone: true },
+      { src: "/images/keepsa/voice.jpg", caption: "음성 리뷰 작성. 업로드는 바로 응답하고, 처리가 끝나면 알림이 옵니다.", phone: true },
+    ],
+    architecture: [
+      {
+        label: "Client",
+        nodes: [
+          { name: "모바일 앱", note: "Flutter" },
+          { name: "운영 콘솔", note: "admin.keepsamap.com", mine: true },
+        ],
+      },
+      {
+        label: "Edge",
+        nodes: [{ name: "Nginx", note: "TLS · 로그인 속도 제한 · 도메인 분리", mine: true }],
+      },
+      {
+        label: "API",
+        nodes: [
+          { name: "검색", note: "bigram · 초성 · 자동완성", mine: true },
+          { name: "인증 · 2FA", note: "JWT · TOTP · 권한 분리", mine: true },
+          { name: "모더레이션", note: "신고 · 숨김 · 정지", mine: true },
+          { name: "타임라인", note: "체류 · 자동 방문 인증", mine: true },
+          { name: "음성 리뷰", note: "202 + 백그라운드", mine: true },
+          { name: "AI 서비스", note: "별도 FastAPI" },
+        ],
+      },
+      {
+        label: "Data",
+        nodes: [
+          { name: "PostgreSQL", note: "GIN · trgm 인덱스", mine: true },
+          { name: "Redis", note: "Pub/Sub · 락 · 1회용 증표" },
+          { name: "S3", note: "사진 · 오디오" },
+          { name: "FCM", note: "푸시" },
+        ],
+      },
+      {
+        label: "Ops",
+        nodes: [
+          { name: "배포 관문", note: "GitHub Actions", mine: true },
+          { name: "헬스 체크", note: "재확인 후 알림", mine: true },
+        ],
+      },
+    ],
     tagline: "SNS·AI로 장소를 발견하고 동선을 기록·공유하는 위치 기반 서비스",
     period: "2026.07 – 진행 중",
     team: "팀 프로젝트",
@@ -53,7 +122,7 @@ export const projects: Project[] = [
           "함수와 인덱스가 있는지 확인해 5분간 캐시하므로, 배포 순서와 상관없이 적용할 수 있고 DROP만으로 되돌릴 수 있습니다.",
         ],
         result:
-          "평가 DB(70만 행)에서 전체를 읽는 검색 39건 → 2건, 검색당 읽은 블록 p95 115k → 9.4k, 정확도는 그대로. 운영에서 '블루 보틀' 1.2초 → 178ms.",
+          "평가 DB(70만 행)에서 전체를 읽는 검색 **39건 → 2건**, 검색당 읽은 블록 p95 **115k → 9.4k**, 정확도는 그대로. 운영에서 '블루 보틀' **1.2초 → 178ms**.",
         refs: "PR #102 · #109",
       },
       {
@@ -66,7 +135,7 @@ export const projects: Project[] = [
           "행 잠금과 마지막 사용 시점 기록으로 같은 코드의 재사용을 막고, 비밀번호 통과 뒤 받는 증표는 5분·5회·1회용으로 제한했습니다.",
           "admin API는 2단계 인증을 거친 토큰만 받고, 위험한 작업은 최고 관리자만 할 수 있게 나눴습니다. 모든 운영 조치는 기록에 남깁니다.",
         ],
-        result: "TOTP 테스트 16개, 실제 발급 토큰을 쓰는 운영자 로그인 테스트 13개.",
+        result: "TOTP 테스트 **16개**, 실제 발급 토큰을 쓰는 운영자 로그인 테스트 **13개**.",
         refs: "PR #85 · #83 · #86",
       },
       {
@@ -79,8 +148,9 @@ export const projects: Project[] = [
           "숨김 조건을 한 모듈에 모아 모든 공개 조회와 평점 계산에 적용했습니다.",
           "이용 정지 시 모든 기기에서 즉시 로그아웃되게 했습니다. 앱이 /auth의 403을 '로그인 만료'로 처리하기 때문에, 로그인은 423으로 응답해 앱 수정 없이 정지 사유가 보이게 했습니다.",
         ],
-        result: "새 테스트 26개. 숨김·정지 검사를 일부러 빼면 4개가 실패하는 것으로 테스트가 실제로 결함을 잡는지 확인했습니다.",
+        result: "새 테스트 **26개**. 숨김·정지 검사를 일부러 빼면 **4개가 실패**하는 것으로 테스트가 실제로 결함을 잡는지 확인했습니다.",
         refs: "PR #84 · #85",
+        image: { src: "/images/keepsa/admin-reports.jpg", caption: "운영 콘솔 신고 처리 화면. 2단계 인증을 거친 운영자만 접근하고, 처리 내역은 운영 기록에 남습니다." },
       },
       {
         title: "한 번도 작동하지 않던 자동 방문 인증 되살리기",
@@ -104,7 +174,7 @@ export const projects: Project[] = [
           "부분 인덱스 조건(confirmed_poi)이 쿼리 조건(confirmed_at)과 달라 한 번도 쓰이지 않던 인덱스를 고쳤습니다.",
           "중복 인덱스 4개를 지우고 리뷰 조회에 빠진 인덱스를 추가했습니다. 마이그레이션은 여러 번 실행해도 안전하게 작성했습니다.",
         ],
-        result: "쓰이지 않던 인덱스 1개 수정, 중복 4개 제거, 누락 1개 추가.",
+        result: "쓰이지 않던 인덱스 **1개 수정**, 중복 **4개 제거**, 누락 **1개 추가**.",
         refs: "PR #51",
       },
       {
@@ -129,7 +199,7 @@ export const projects: Project[] = [
           "모니터링은 실패하면 60초 뒤 한 번 더 확인하고, 두 번 모두 실패해야 알립니다.",
           "가짜 gh와 가짜 서버로 통과와 차단 두 경우를 모두 재현해 확인했습니다.",
         ],
-        result: "실제 장애는 6분 안에 알림이 가고, 배포 관문이 늦어지는 경우도 최대 60초입니다.",
+        result: "실제 장애는 **6분 안에** 알림이 가고, 배포 관문이 늦어지는 경우도 최대 60초입니다.",
         refs: "PR #106 · #119",
       },
       {
@@ -172,6 +242,57 @@ export const projects: Project[] = [
   {
     slug: "union",
     name: "Union",
+    category: "캡스톤 디자인",
+    headline: "인증 기반부터 검색·알림·신고 도메인까지",
+    contribution:
+      "JWT 인증 기반 구성, 미니앱·검색·알림·신고·사용자 도메인 API 설계와 구현",
+    outcome: "머지된 PR **30건**, 담당 도메인 **5개**(미니앱 · 알림 · 신고 · 대학 인증 · 사용자)",
+    links: [
+      { label: "백엔드 저장소", href: "https://github.com/dku-union/union-app-backend" },
+      { label: "자모 검색 PR #25", href: "https://github.com/dku-union/union-app-backend/pull/25" },
+      { label: "알림 시스템 PR #49", href: "https://github.com/dku-union/union-app-backend/pull/49" },
+      { label: "퍼블리셔 콘솔", href: "https://union-phi.vercel.app/" },
+    ],
+    cover: "/images/union/console-hero.jpg",
+    gallery: [
+      {
+        src: "/images/union/console-hero.jpg",
+        caption: "퍼블리셔 콘솔 첫 화면. 프런트엔드는 팀원이 만들었고, 콘솔이 호출하는 미니앱·심사·알림 API를 구현했습니다.",
+      },
+      {
+        src: "/images/union/console-features.jpg",
+        caption: "콘솔의 출시 흐름: 업로드 → 테스트 → 심사 → 배포. 심사 상태 전이와 테스트 링크 발급 API를 맡았습니다.",
+      },
+    ],
+    architecture: [
+      {
+        label: "Client",
+        nodes: [
+          { name: "iOS 앱", note: "SwiftUI" },
+          { name: "퍼블리셔 콘솔", note: "Next.js · 내부 JWT" },
+        ],
+      },
+      {
+        label: "API",
+        nodes: [
+          { name: "인증", note: "Spring Security · JWT 필터", mine: true },
+          { name: "미니앱 · 심사", note: "상태 전이 · 테스트 링크", mine: true },
+          { name: "검색", note: "자모 분해 · ZSET 랭킹", mine: true },
+          { name: "알림", note: "토큰 upsert · 인박스", mine: true },
+          { name: "신고 · 사용자", note: "중복 신고 409 · 탈퇴 퍼지", mine: true },
+          { name: "분석 · 워크스페이스", note: "팀원 담당" },
+        ],
+      },
+      {
+        label: "Data",
+        nodes: [
+          { name: "PostgreSQL", note: "JPA" },
+          { name: "Redis", note: "캐시 · 인기 검색어", mine: true },
+          { name: "GCS", note: "번들 · 아이콘" },
+          { name: "FCM", note: "푸시", mine: true },
+        ],
+      },
+    ],
     tagline: "퍼블리셔가 미니앱을 배포하고 대학생이 실행하는 슈퍼앱 플랫폼",
     period: "2026.03 – 2026.06",
     team: "캡스톤 디자인 · 4인",
@@ -180,7 +301,6 @@ export const projects: Project[] = [
     repo: "https://github.com/dku-union/union-app-backend",
     stats: [
       { label: "Merged PRs", value: "30" },
-      { label: "Lines added", value: "+4.8k" },
       { label: "Owned domains", value: "5" },
     ],
     summary:

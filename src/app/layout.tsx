@@ -22,11 +22,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className="min-h-screen">
+      <body id="top" className="min-h-screen">
         <SiteHeader />
-        <div className="mx-auto max-w-4xl px-5 sm:px-8">{children}</div>
-        <footer className="mx-auto mt-10 max-w-4xl border-t border-line px-5 py-10 text-sm text-faint sm:px-8">
-          © 2026 조성빈 · comicricky20@gmail.com
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">{children}</div>
+        <footer className="mt-20 border-t border-line">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-8 text-sm text-faint sm:px-8">
+            <span>조성빈 · Backend Developer</span>
+            <span className="flex gap-4">
+              <a href="https://github.com/ricky00-dev" className="hover:text-fg">
+                GitHub ↗
+              </a>
+              <a href="#top" className="hover:text-fg">
+                맨 위로 ↑
+              </a>
+            </span>
+          </div>
         </footer>
       </body>
     </html>
