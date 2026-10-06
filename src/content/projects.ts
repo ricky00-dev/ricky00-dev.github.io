@@ -84,9 +84,9 @@ export const projects: Project[] = [
         label: "Data",
         nodes: [
           { name: "PostgreSQL", note: "GIN · trgm 인덱스", mine: true },
-          { name: "Redis", note: "Pub/Sub · 락 · 1회용 증표" },
-          { name: "S3", note: "사진 · 오디오" },
-          { name: "FCM", note: "푸시" },
+          { name: "Redis", note: "Pub/Sub 중복 방지 · 2FA 증표", mine: true },
+          { name: "S3", note: "음성 리뷰 업로드 · presigned URL", mine: true },
+          { name: "FCM", note: "리뷰 완료 · 전체 공지", mine: true },
         ],
       },
       {
@@ -286,9 +286,9 @@ export const projects: Project[] = [
       {
         label: "Data",
         nodes: [
-          { name: "PostgreSQL", note: "JPA" },
+          { name: "PostgreSQL", note: "JPA 엔티티 · 쿼리", mine: true },
           { name: "Redis", note: "캐시 · 인기 검색어", mine: true },
-          { name: "GCS", note: "번들 · 아이콘" },
+          { name: "GCS", note: "아이콘 · 앱 버전 업로드", mine: true },
           { name: "FCM", note: "푸시", mine: true },
         ],
       },

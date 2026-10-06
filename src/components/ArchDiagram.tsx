@@ -32,7 +32,7 @@ export function ArchDiagram({ layers }: { layers: Layer[] }) {
       </div>
       <figcaption className="mt-3 flex items-center gap-2 text-xs text-faint">
         <span className="inline-block h-3 w-3 rounded border border-accent/40 bg-accent-soft" />
-        직접 설계·구현한 부분
+        직접 구현하거나 연동한 부분
       </figcaption>
     </figure>
   );
