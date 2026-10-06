@@ -1,7 +1,7 @@
 export function Tag({ name }: { name: string }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-line bg-surface px-2 py-0.5 font-mono text-[11px] text-muted">
-      {name.toLowerCase()}
+    <span className="inline-flex items-center rounded-md bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted">
+      {name}
     </span>
   );
 }

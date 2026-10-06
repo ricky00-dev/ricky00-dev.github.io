@@ -38,10 +38,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-bg/90 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 font-mono text-sm">
-          <span className="h-2 w-2 rounded-full bg-accent" />
-          <span className="font-semibold">sungbin</span>
-          <span className="hidden text-faint sm:inline">/ backend</span>
+        <Link href="/" className="flex items-baseline gap-2">
+          <span className="font-bold tracking-tight">조성빈</span>
+          <span className="hidden text-sm text-faint sm:inline">Backend Developer</span>
         </Link>
         <nav className="flex items-center text-sm">
           {nav.map((n) => (

@@ -20,12 +20,11 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   return p ? { title: `${p.name} · 조성빈`, description: p.tagline } : {};
 }
 
-function Heading({ id, path, title }: { id: string; path: string; title: string }) {
+function Heading({ id, title }: { id: string; title: string }) {
   return (
-    <div id={id} className="flex scroll-mt-20 items-baseline justify-between gap-4 border-b border-line pb-3">
-      <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-      <span className="font-mono text-xs text-faint">{path}</span>
-    </div>
+    <h2 id={id} className="scroll-mt-20 border-b border-line pb-3 text-xl font-bold tracking-tight">
+      {title}
+    </h2>
   );
 }
 
@@ -46,27 +45,25 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   ];
 
   const meta = [
-    { k: "role", v: `${p.role} · ${p.team}` },
-    { k: "period", v: p.period },
-    { k: "scope", v: p.contribution },
-    { k: "stack", v: p.stack.join(", ") },
+    { k: "역할", v: `${p.role} · ${p.team}` },
+    { k: "기간", v: p.period },
+    { k: "담당", v: p.contribution },
+    { k: "기술", v: p.stack.join(", ") },
   ];
 
   return (
     <main>
-      <nav className="pt-8 font-mono text-sm text-faint">
-        <Link href="/#projects" className="hover:text-fg">
-          projects
+      <nav className="pt-8 text-sm">
+        <Link href="/#projects" className="text-muted hover:text-fg">
+          ← 전체 프로젝트
         </Link>
-        <span className="px-1.5">/</span>
-        <span className="text-fg">{p.slug}</span>
       </nav>
 
       <header className="pt-8 pb-10">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-5xl font-bold tracking-tight">{p.name}</h1>
-          <span className="rounded-full border border-line px-2.5 py-0.5 font-mono text-xs text-faint">
-            {p.privateNote ? "private" : "public"}
+          <span className="rounded-full border border-line px-2.5 py-0.5 text-xs text-faint">
+            {p.privateNote ? "비공개 저장소" : "공개 저장소"}
           </span>
         </div>
         <p className="mt-3 text-xl font-medium">{p.headline}</p>
@@ -92,19 +89,19 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <dl className="card divide-y divide-line text-sm">
             {meta.map((m) => (
               <div key={m.k} className="grid grid-cols-[4.5rem_1fr] gap-3 px-4 py-3">
-                <dt className="font-mono text-xs leading-5 text-faint">{m.k}</dt>
+                <dt className="text-sm text-faint">{m.k}</dt>
                 <dd className="leading-relaxed">{m.v}</dd>
               </div>
             ))}
           </dl>
           <div className="card flex flex-col justify-center p-5">
-            <p className="font-mono text-xs text-faint">impact</p>
+            <p className="text-sm font-semibold">성과</p>
             <p className="mt-2 leading-relaxed">
               <Rich text={p.outcome} />
             </p>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
               {p.stats.map((s) => (
-                <span key={s.label} className="font-mono text-xs text-muted">
+                <span key={s.label} className="text-xs text-muted">
                   <span className="font-semibold text-fg">{s.value}</span> {s.label}
                 </span>
               ))}
@@ -116,7 +113,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       <div className="grid gap-12 lg:grid-cols-[14rem_1fr]">
         <aside className="hidden lg:block">
           <div className="sticky top-20">
-            <p className="font-mono text-xs text-faint">files changed</p>
+            <p className="text-xs font-semibold text-faint">목차</p>
             <ol className="mt-3 space-y-0.5 text-sm">
               {toc.map((t) => (
                 <li key={t.id}>
@@ -136,7 +133,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         <div className="min-w-0 space-y-14">
           {p.gallery && (
             <section>
-              <Heading id="screens" path="screens/" title="화면" />
+              <Heading id="screens" title="화면" />
               <div className="mt-6">
                 <Gallery shots={p.gallery} />
               </div>
@@ -144,17 +141,14 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           )}
 
           <section>
-            <Heading id="architecture" path="architecture.md" title="구조와 담당 범위" />
+            <Heading id="architecture" title="구조와 담당 범위" />
             <div className="mt-6">
               <ArchDiagram layers={p.architecture} />
             </div>
           </section>
 
           <section className="space-y-8">
-            <div className="flex items-baseline justify-between gap-4 border-b border-line pb-3">
-              <h2 className="text-xl font-bold tracking-tight">주요 작업</h2>
-              <span className="font-mono text-xs text-faint">{p.cases.length} pull requests</span>
-            </div>
+            <h2 className="border-b border-line pb-3 text-xl font-bold tracking-tight">주요 작업</h2>
             {p.cases.map((c, i) => (
               <article key={c.title} id={`case-${i + 1}`} className="card scroll-mt-20 overflow-hidden">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface-2 px-5 py-2.5">
@@ -175,11 +169,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
                   <div className="mt-5 space-y-4 text-[15px] leading-relaxed">
                     <div>
-                      <p className="font-mono text-xs text-faint">## 문제</p>
+                      <p className="text-xs font-semibold text-faint">문제</p>
                       <p className="mt-1.5 text-muted">{c.problem}</p>
                     </div>
                     <div>
-                      <p className="font-mono text-xs text-faint">## 해결</p>
+                      <p className="text-xs font-semibold text-faint">해결</p>
                       <ul className="mt-1.5 space-y-2">
                         {c.solution.map((s) => (
                           <li key={s} className="flex gap-3">
@@ -190,7 +184,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                       </ul>
                     </div>
                     <div>
-                      <p className="font-mono text-xs text-faint">## 검증</p>
+                      <p className="text-xs font-semibold text-faint">검증</p>
                       <p className="mt-1.5">
                         <Rich text={c.result} />
                       </p>
@@ -208,7 +202,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </section>
 
           <section>
-            <Heading id="also" path="CHANGELOG.md" title="그 밖에 한 일" />
+            <Heading id="also" title="그 밖에 한 일" />
             <ul className="mt-4 divide-y divide-line">
               {p.alsoDid.map((a) => {
                 const m = a.match(/^(.*?)\s*\((PR [^)]+)\)$/);
@@ -223,7 +217,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </section>
 
           <section>
-            <Heading id="retro" path="RETRO.md" title="회고" />
+            <Heading id="retro" title="회고" />
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {p.retro.map((r) => (
                 <div key={r.title} className="card p-5">
@@ -238,11 +232,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
       {next.slug !== p.slug && (
         <div className="mt-16 flex items-end justify-between border-t border-line pt-8">
-          <Link href="/#projects" className="font-mono text-sm text-muted hover:text-fg">
-            ← projects
+          <Link href="/#projects" className="text-sm text-muted hover:text-fg">
+            ← 전체 프로젝트
           </Link>
           <Link href={`/projects/${next.slug}/`} className="group text-right">
-            <span className="block font-mono text-xs text-faint">next</span>
+            <span className="block text-xs text-faint">다음 프로젝트</span>
             <span className="text-2xl font-bold tracking-tight">
               {next.name} <span className="inline-block text-accent transition group-hover:translate-x-1">→</span>
             </span>

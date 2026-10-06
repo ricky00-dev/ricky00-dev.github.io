@@ -7,12 +7,12 @@ export function ArchDiagram({ layers }: { layers: Layer[] }) {
         {layers.map((layer, i) => (
           <div key={layer.label}>
             {i > 0 && (
-              <div className="py-1 pl-8 font-mono text-xs text-faint sm:pl-[calc(4.5rem+2rem)]" aria-hidden>
-                │
+              <div className="py-1 pl-8 text-xs text-faint sm:pl-[calc(4.5rem+2rem)]" aria-hidden>
+                ↓
               </div>
             )}
             <div className="grid gap-2 sm:grid-cols-[4.5rem_1fr] sm:items-center">
-              <div className="font-mono text-[11px] tracking-wider text-faint">{layer.label.toLowerCase()}</div>
+              <div className="text-xs font-medium text-faint">{layer.label}</div>
               <div className="flex flex-wrap gap-2">
                 {layer.nodes.map((n) => (
                   <div
