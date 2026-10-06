@@ -1,124 +1,123 @@
 import Link from "next/link";
+import { Tag } from "@/components/Tag";
 import { projects } from "@/content/projects";
 
 const stack = [
   { group: "Backend", items: ["Java", "Spring Boot", "Spring Security", "JPA", "Python", "FastAPI", "SQLAlchemy"] },
   { group: "Database", items: ["PostgreSQL", "Redis"] },
-  { group: "Infra", items: ["Docker", "AWS S3 · SQS", "Google Cloud", "GitHub Actions"] },
+  { group: "Infra", items: ["Docker", "Nginx", "AWS S3 · SQS", "Google Cloud", "GitHub Actions"] },
   { group: "Realtime", items: ["WebSocket", "Redis Pub/Sub", "FCM"] },
   { group: "Testing", items: ["Pytest"] },
 ];
 
-const strengths = [
-  {
-    title: "근본 원인까지",
-    body: "'가끔 깨지는 CI'에서 매일 9시간씩 틀리던 통계를, '작동하지 않는 기능'에서 타입 불일치를 찾아냅니다.",
-  },
-  {
-    title: "재현하고, 고치고, 고정한다",
-    body: "버그를 테스트로 먼저 재현하고, 고친 뒤 회귀 테스트로 닫습니다.",
-  },
-  {
-    title: "데이터 정합성",
-    body: "인덱스 감사, N+1, 타임존, 멱등성처럼 에러 없이 결과만 틀리는 지점을 챙깁니다.",
-  },
+const highlights = [
+  { value: "1.2s → 178ms", label: "두 글자 검색 응답", sub: "Keepsa · 운영 환경" },
+  { value: "TOTP 2FA", label: "운영 콘솔 2단계 인증 직접 구현", sub: "Keepsa" },
+  { value: "73", label: "Merged PRs", sub: "Keepsa 43 · Union 30" },
 ];
 
 export default function Home() {
   return (
     <main>
-      <header className="pt-20 pb-16 sm:pt-28">
-        <p className="font-mono text-sm text-accent">Backend Developer</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">조성빈</h1>
-        <p className="mt-6 text-lg leading-relaxed text-muted sm:text-xl">
+      <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-indigo-200/50 via-sky-200/40 to-emerald-200/40 blur-3xl"
+        />
+        <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          Backend Developer
+        </span>
+        <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-6xl">조성빈</h1>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
           Spring Boot와 FastAPI로 서비스를 만들어 온 백엔드 개발자입니다.
           <br className="hidden sm:block" /> 지금은 출시를 앞둔 위치 기반 서비스 Keepsa의 백엔드를 개발하고 있습니다.
         </p>
         <p className="mt-4 text-sm text-faint">단국대학교 소프트웨어학과 · SQLD · ADsP</p>
-        <div className="mt-8 flex flex-wrap gap-3 text-sm">
+        <div className="mt-8 flex flex-wrap gap-3 text-sm font-medium">
           <a
             href="https://github.com/ricky00-dev"
-            className="rounded-md border border-line bg-surface px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full bg-fg px-5 py-2.5 text-white transition hover:bg-fg/85"
           >
             GitHub
           </a>
           <a
             href="mailto:comicricky20@gmail.com"
-            className="rounded-md border border-line bg-surface px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full border border-line bg-surface px-5 py-2.5 transition hover:border-fg/30"
           >
-            comicricky20@gmail.com
+            Email
           </a>
-        </div>
-      </header>
-
-      <section className="border-t border-line py-14">
-        <h2 className="font-mono text-sm text-faint">How I work</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {strengths.map((s) => (
-            <div key={s.title} className="rounded-lg border border-line bg-surface p-5">
-              <h3 className="font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{s.body}</p>
-            </div>
-          ))}
         </div>
       </section>
 
-      <section className="border-t border-line py-14">
-        <h2 className="font-mono text-sm text-faint">Projects</h2>
-        <div className="mt-6 space-y-4">
+      <section className="grid gap-3 sm:grid-cols-3">
+        {highlights.map((h) => (
+          <div key={h.label} className="card p-5">
+            <div className="text-2xl font-bold tracking-tight text-accent">{h.value}</div>
+            <div className="mt-2 text-sm font-medium">{h.label}</div>
+            <div className="mt-0.5 text-xs text-faint">{h.sub}</div>
+          </div>
+        ))}
+      </section>
+
+      <section id="projects" className="pt-20">
+        <h2 className="text-2xl font-bold tracking-tight">Projects</h2>
+        <div className="mt-6 space-y-5">
           {projects.map((p) => (
             <Link
               key={p.slug}
               href={`/projects/${p.slug}/`}
-              className="group block rounded-lg border border-line bg-surface p-6 transition hover:border-accent"
+              className="card group block p-6 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-stone-200/70 sm:p-7"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-xl font-semibold group-hover:text-accent">{p.name}</h3>
+                <h3 className="text-xl font-bold tracking-tight group-hover:text-accent">{p.name}</h3>
                 <span className="font-mono text-xs text-faint">{p.period}</span>
               </div>
               <p className="mt-2 text-muted">{p.tagline}</p>
               <p className="mt-1 text-sm text-faint">
                 {p.team} · {p.role}
               </p>
-              <ul className="mt-4 space-y-1.5 text-sm text-muted">
+              <ul className="mt-5 space-y-2.5">
                 {p.cases.slice(0, 3).map((c) => (
-                  <li key={c.title} className="flex gap-2">
-                    <span className="text-accent-2">▸</span>
-                    {c.title}
+                  <li key={c.title} className="flex flex-wrap items-center gap-2 text-sm">
+                    <Tag name={c.tag} />
+                    <span>{c.title}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-4">
                 <div className="flex flex-wrap gap-1.5">
                   {p.stack.slice(0, 5).map((s) => (
-                    <span key={s} className="rounded bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
+                    <span key={s} className="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
                       {s}
                     </span>
                   ))}
                 </div>
-                <span className="text-sm text-accent">자세히 보기 →</span>
+                <span className="text-sm font-medium text-accent">
+                  자세히 보기 <span className="inline-block transition group-hover:translate-x-0.5">→</span>
+                </span>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-line py-14">
-        <h2 className="font-mono text-sm text-faint">Tech Stack</h2>
-        <dl className="mt-6 space-y-4">
+      <section id="stack" className="pt-20">
+        <h2 className="text-2xl font-bold tracking-tight">Tech Stack</h2>
+        <div className="card mt-6 divide-y divide-line">
           {stack.map((g) => (
-            <div key={g.group} className="grid gap-2 sm:grid-cols-[7rem_1fr]">
-              <dt className="text-sm text-faint">{g.group}</dt>
-              <dd className="flex flex-wrap gap-1.5">
+            <div key={g.group} className="grid gap-2 px-5 py-4 sm:grid-cols-[8rem_1fr] sm:items-center">
+              <div className="text-sm font-medium text-faint">{g.group}</div>
+              <div className="flex flex-wrap gap-1.5">
                 {g.items.map((i) => (
-                  <span key={i} className="rounded border border-line px-2.5 py-1 text-sm">
+                  <span key={i} className="rounded-md border border-line bg-surface-2/60 px-2.5 py-1 text-sm">
                     {i}
                   </span>
                 ))}
-              </dd>
+              </div>
             </div>
           ))}
-        </dl>
+        </div>
       </section>
     </main>
   );

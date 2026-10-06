@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b0d12;
-  --surface: #12151c;
-  --surface-2: #181c25;
-  --border: #242a36;
-  --fg: #e7e9ee;
-  --muted: #9aa3b2;
-  --faint: #6b7385;
-  --accent: #7aa2f7;
-  --accent-2: #9ece6a;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f4f4f2;
+  --border: #e7e6e3;
+  --fg: #1a1a19;
+  --muted: #55534e;
+  --faint: #8f8c85;
+  --accent: #4338ca;
+  --accent-soft: #eef0ff;
 }
 
 @theme inline {
@@ -21,14 +21,16 @@
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 html {
   background: var(--bg);
-  color-scheme: dark;
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -36,8 +38,16 @@ body {
   color: var(--fg);
   font-family: var(--font-sans);
   word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.03);
 }

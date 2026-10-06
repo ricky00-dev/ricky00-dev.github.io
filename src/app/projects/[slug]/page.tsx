@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Tag } from "@/components/Tag";
 import { getProject, projects } from "@/content/projects";
 
 export const dynamicParams = false;
@@ -21,40 +22,40 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   if (!p) notFound();
 
   return (
-    <main className="pb-10">
-      <nav className="pt-10">
-        <Link href="/" className="text-sm text-muted hover:text-accent">
-          ← 조성빈
+    <main className="pb-6">
+      <nav className="pt-8">
+        <Link href="/#projects" className="text-sm text-muted hover:text-fg">
+          ← 프로젝트 목록
         </Link>
       </nav>
 
-      <header className="pt-10 pb-12">
-        <p className="font-mono text-sm text-accent">{p.period}</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight">{p.name}</h1>
+      <header className="pt-8 pb-12">
+        <p className="font-mono text-xs text-faint">{p.period}</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">{p.name}</h1>
         <p className="mt-4 text-lg text-muted">{p.tagline}</p>
-        <p className="mt-2 text-sm text-faint">
+        <p className="mt-1 text-sm text-faint">
           {p.team} · {p.role}
         </p>
 
-        <div className="mt-8 grid grid-cols-3 gap-3">
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {p.stats.map((s) => (
-            <div key={s.label} className="rounded-lg border border-line bg-surface p-4">
-              <div className="text-2xl font-bold text-accent">{s.value}</div>
-              <div className="mt-1 font-mono text-xs text-faint">{s.label}</div>
+            <div key={s.label} className="card p-4">
+              <div className="text-xl font-bold tracking-tight text-accent sm:text-2xl">{s.value}</div>
+              <div className="mt-1 text-xs text-faint">{s.label}</div>
             </div>
           ))}
         </div>
 
         <div className="mt-6 flex flex-wrap gap-1.5">
           {p.stack.map((s) => (
-            <span key={s} className="rounded bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
+            <span key={s} className="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
               {s}
             </span>
           ))}
         </div>
 
         {p.repo && (
-          <a href={p.repo} className="mt-6 inline-block text-sm text-accent hover:underline">
+          <a href={p.repo} className="mt-6 inline-block text-sm font-medium text-accent hover:underline">
             GitHub 저장소 →
           </a>
         )}
@@ -63,66 +64,58 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         <p className="mt-8 leading-relaxed text-muted">{p.summary}</p>
       </header>
 
-      <section className="border-t border-line py-12">
-        <h2 className="font-mono text-sm text-faint">Key Work</h2>
-        <div className="mt-6 space-y-6">
+      <section>
+        <h2 className="text-2xl font-bold tracking-tight">Key Work</h2>
+        <div className="mt-6 space-y-5">
           {p.cases.map((c, i) => (
-            <article key={c.title} className="rounded-lg border border-line bg-surface p-6">
+            <article key={c.title} className="card p-6 sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-mono text-xs text-accent-2">
-                  {String(i + 1).padStart(2, "0")} · {c.tag}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
+                  <Tag name={c.tag} />
+                </div>
                 <span className="font-mono text-xs text-faint">{c.refs}</span>
               </div>
-              <h3 className="mt-2 text-lg font-semibold">{c.title}</h3>
+              <h3 className="mt-3 text-lg font-bold tracking-tight">{c.title}</h3>
 
-              <dl className="mt-4 space-y-4 text-sm leading-relaxed">
-                <div>
-                  <dt className="font-mono text-xs text-faint">PROBLEM</dt>
-                  <dd className="mt-1 text-muted">{c.problem}</dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-xs text-faint">SOLUTION</dt>
-                  <dd className="mt-1">
-                    <ul className="space-y-1.5 text-muted">
-                      {c.solution.map((s) => (
-                        <li key={s} className="flex gap-2">
-                          <span className="text-accent">–</span>
-                          <span>{s}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-mono text-xs text-faint">RESULT</dt>
-                  <dd className="mt-1 text-fg">{c.result}</dd>
-                </div>
-              </dl>
+              <p className="mt-3 text-sm leading-relaxed text-muted">{c.problem}</p>
+
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed">
+                {c.solution.map((s) => (
+                  <li key={s} className="flex gap-2.5">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-5 rounded-lg bg-accent-soft px-4 py-3 text-sm leading-relaxed">
+                <span className="mr-2 font-semibold text-accent">Result</span>
+                {c.result}
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-line py-12">
-        <h2 className="font-mono text-sm text-faint">Also</h2>
-        <ul className="mt-6 space-y-2 text-sm leading-relaxed text-muted">
+      <section className="pt-16">
+        <h2 className="text-2xl font-bold tracking-tight">그 밖에 한 일</h2>
+        <ul className="card mt-6 divide-y divide-line text-sm leading-relaxed">
           {p.alsoDid.map((a) => (
-            <li key={a} className="flex gap-2">
-              <span className="text-accent-2">▸</span>
-              <span>{a}</span>
+            <li key={a} className="px-5 py-3 text-muted">
+              {a}
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="border-t border-line py-12">
-        <h2 className="font-mono text-sm text-faint">Retrospective</h2>
-        <div className="mt-6 space-y-4">
+      <section className="pt-16">
+        <h2 className="text-2xl font-bold tracking-tight">회고</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {p.retro.map((r) => (
-            <div key={r.title} className="border-l-2 border-accent pl-4">
+            <div key={r.title} className="card p-5">
               <h3 className="font-semibold">{r.title}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-muted">{r.body}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{r.body}</p>
             </div>
           ))}
         </div>
