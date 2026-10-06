@@ -11,16 +11,6 @@ const stack = [
   { group: "Testing", items: ["Pytest"] },
 ];
 
-// Merged PRs in the Keepsa repo (private), newest first, retitled in plain words.
-const recentPRs = [
-  { no: 119, title: "배포 중 잘못 오던 서버 다운 알림 제거", date: "10.02" },
-  { no: 102, title: "두 글자 검색 1.2초 → 178ms", date: "10.01" },
-  { no: 85, title: "운영 콘솔 2단계 인증과 권한 분리", date: "09.28" },
-  { no: 84, title: "신고 통합 · 숨김 · 이용 정지", date: "09.28" },
-  { no: 52, title: "매일 9시간씩 틀리던 통계의 타임존 버그 수정", date: "09.02" },
-  { no: 51, title: "인덱스 58개 감사, 중복 4개 제거", date: "09.02" },
-];
-
 const credentials = [
   { name: "SQL 개발자 (SQLD)", issuer: "한국데이터산업진흥원", date: "2026.03" },
   { name: "데이터분석 준전문가 (ADsP)", issuer: "한국데이터산업진흥원", date: "2026.03" },
@@ -34,7 +24,7 @@ function SectionTitle({ title }: { title: string }) {
 export default function Home() {
   return (
     <main>
-      <section className="grid gap-10 pt-14 pb-16 sm:pt-20 lg:grid-cols-[1fr_27rem] lg:items-center">
+      <section className="pt-14 pb-16 sm:pt-20">
         <div>
           <p className="text-sm font-medium text-muted">조성빈 · Backend Developer</p>
           <h1 className="mt-4 text-4xl leading-[1.2] font-bold tracking-tight sm:text-[3.25rem]">
@@ -58,24 +48,6 @@ export default function Home() {
             </a>
             <span className="ml-1 text-sm text-faint">머지된 PR 73건 · Keepsa 43 · Union 30</span>
           </div>
-        </div>
-
-        <div className="card overflow-hidden">
-          <div className="border-b border-line px-4 py-3 text-sm font-semibold">Keepsa에서 최근 머지한 작업</div>
-          <ul className="divide-y divide-line">
-            {recentPRs.map((pr) => (
-              <li key={pr.no} className="flex items-start gap-3 px-4 py-2.5">
-                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                <div className="min-w-0 flex-1">
-                  <div className="text-sm">{pr.title}</div>
-                </div>
-                <span className="shrink-0 font-mono text-xs text-faint">
-                  #{pr.no}
-                  <span className="hidden sm:inline"> · {pr.date}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
