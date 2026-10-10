@@ -47,7 +47,7 @@ export const projects: Project[] = [
     category: "서비스 개발·운영",
     headline: "검색 성능부터 운영 콘솔 보안까지",
     contribution:
-      "백엔드 API 구현, 검색 성능·품질 개선, 운영 콘솔 인증·권한·모더레이션, 배포 관문과 모니터링 보완",
+      "백엔드 API 구현, 검색 성능·품질 개선, 운영 콘솔 인증·권한·모더레이션, 배포 관문과 모니터링 보완, 앱 QA 결함 수정",
     outcome:
       "두 글자 검색 **1.2초 → 178ms**(운영), 평가 DB에서 전체를 읽는 검색 **39건 → 2건**, 운영 콘솔 **TOTP 2단계 인증** 도입",
     links: [],
@@ -62,7 +62,7 @@ export const projects: Project[] = [
       {
         label: "Client",
         nodes: [
-          { name: "모바일 앱", note: "Flutter" },
+          { name: "모바일 앱", note: "Flutter · QA 결함 수정 · 지도", mine: true },
           { name: "운영 콘솔", note: "admin.keepsamap.com", mine: true },
         ],
       },
@@ -102,10 +102,10 @@ export const projects: Project[] = [
     period: "2026.07 – 진행 중",
     team: "팀 프로젝트",
     role: "Backend",
-    stack: ["FastAPI", "SQLAlchemy (async)", "PostgreSQL", "Redis", "Alembic", "Pytest", "FCM"],
+    stack: ["FastAPI", "SQLAlchemy (async)", "PostgreSQL", "Redis", "Alembic", "Pytest", "FCM", "Flutter"],
     privateNote: "출시 준비 중인 팀 프로젝트라 저장소는 비공개입니다.",
     stats: [
-      { label: "Merged PRs", value: "43" },
+      { label: "Merged PRs", value: "46" },
       { label: "두 글자 검색 (운영)", value: "1.2s → 178ms" },
       { label: "운영 콘솔 인증", value: "TOTP 2FA" },
     ],
@@ -256,6 +256,14 @@ export const projects: Project[] = [
       "친구 피드 N+1 제거: 친구 수와 상관없이 쿼리 3개 (PR #39)",
       "엔드포인트 196개 전수 조사, 테스트 없던 22개에 테스트 47개 추가 (PR #50)",
       "카카오 API 약관 검토 후 직접 만든 응답 캐시 제거, 잔존 데이터 정리 스크립트 작성 (PR #49 · #55)",
+      "기본 킵박스가 없는 사용자의 저장 버튼이 비활성이던 것: get-or-create로 바꾸고 동시 요청은 SAVEPOINT로 처리 (PR #97)",
+      "인스타그램 링크로 장소를 등록하는 SNS2Map 연결 (PR #31)",
+      "실제 코드와 약 2,000줄 어긋나 있던 OpenAPI 문서 재생성 (PR #45)",
+      "앱 코스 검색이 위치를 보내지 않아 전국 지점이 섞이던 것('단국대 메가커피' → 양평)을 지도 중심 기준으로 수정, '이 지역에서 다시 검색' 추가 (PR #225 · #248)",
+      "설정에 'AI 기능 사용' 스위치 추가: 끄면 서버 동의가 철회되어 음성 리뷰 AI 정리와 SNS2Map이 실제로 멈춤 (PR #248)",
+      "음성 리뷰를 기다리다 화면을 나가면 완료 배너와 알림이 뜨지 않던 원인 두 가지 수정 (PR #225)",
+      "지도 대표 핀에서 회사·접객주점 제외(서울 줌 15 기준 회사 핀 71 → 13개), 지도 조작 프레임 측정 도구 (PR #103 · #105)",
+      "main에서 깨진 앱·iOS 빌드 복구 (PR #246)",
     ],
     retro: [
       {

@@ -45,7 +45,7 @@ export default function Home() {
             >
               GitHub ↗
             </a>
-            <span className="ml-1 text-sm text-faint">머지된 PR 73건 · Keepsa 43 · Union 30</span>
+            <span className="ml-1 text-sm text-faint">머지된 PR 76건 · Keepsa 46 · Union 30</span>
           </div>
         </div>
       </section>
