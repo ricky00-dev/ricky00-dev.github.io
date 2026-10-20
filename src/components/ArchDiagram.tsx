@@ -1,13 +1,13 @@
 import type { Layer } from "@/content/projects";
 
-export function ArchDiagram({ layers }: { layers: Layer[] }) {
+export function ArchDiagram({ layers, compact = false }: { layers: Layer[]; compact?: boolean }) {
   return (
     <figure>
-      <div className="card p-4 sm:p-6">
+      <div className={compact ? "card p-3" : "card p-4 sm:p-6"}>
         {layers.map((layer, i) => (
           <div key={layer.label}>
             {i > 0 && (
-              <div className="py-1 pl-8 text-xs text-faint sm:pl-[calc(4.5rem+2rem)]" aria-hidden>
+              <div className={`pl-8 text-xs text-faint sm:pl-[calc(4.5rem+2rem)] ${compact ? "py-0 leading-4" : "py-1"}`} aria-hidden>
                 ↓
               </div>
             )}
@@ -17,7 +17,7 @@ export function ArchDiagram({ layers }: { layers: Layer[] }) {
                 {layer.nodes.map((n) => (
                   <div
                     key={n.name}
-                    className={`rounded-md border px-3 py-2 ${
+                    className={`rounded-md border ${compact ? "px-2 py-1" : "px-3 py-2"} ${
                       n.mine ? "border-accent/50 bg-accent-soft" : "border-dashed border-line bg-surface-2/60"
                     }`}
                   >
