@@ -4,10 +4,10 @@ import { projects } from "@/content/projects";
 
 const stack = [
   { group: "Backend", items: ["Java", "Spring Boot", "Spring Security", "JPA", "Python", "FastAPI", "SQLAlchemy"] },
-  { group: "Database", items: ["PostgreSQL", "Redis"] },
-  { group: "Infra", items: ["Docker", "Nginx", "AWS S3 · SQS", "Google Cloud", "GitHub Actions"] },
-  { group: "Realtime", items: ["WebSocket", "Redis Pub/Sub", "FCM"] },
-  { group: "Testing", items: ["Pytest"] },
+  { group: "Database", items: ["PostgreSQL", "Redis", "Flyway"] },
+  { group: "Infra", items: ["Docker", "Nginx", "Caddy", "AWS EC2 · S3 · SQS", "Google Cloud", "GitHub Actions"] },
+  { group: "Realtime", items: ["SSE", "WebSocket", "Redis Pub/Sub", "FCM"] },
+  { group: "Testing", items: ["Pytest", "JUnit", "Testcontainers"] },
 ];
 
 const credentials = [
@@ -33,7 +33,7 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             Spring Boot와 FastAPI로 서비스를 만들어 온 백엔드 개발자입니다. 지금은 출시를 앞둔 위치 기반 서비스
-            Keepsa의 백엔드를 개발하고 있습니다.
+            Keepsa와 졸업 전시 프로젝트 불앤베어의 백엔드를 개발하고 있습니다.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3 text-sm font-medium">
             <Link href="/#projects" className="rounded-md bg-fg px-4 py-2.5 text-white transition hover:bg-fg/85">
@@ -45,7 +45,7 @@ export default function Home() {
             >
               GitHub ↗
             </a>
-            <span className="ml-1 text-sm text-faint">머지된 PR 76건 · Keepsa 46 · Union 30</span>
+            <span className="ml-1 text-sm text-faint">머지된 PR 129건 · Keepsa 52 · 불앤베어 47 · Union 30</span>
           </div>
         </div>
       </section>

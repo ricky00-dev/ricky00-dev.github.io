@@ -16,10 +16,10 @@ const SITE = "https://ricky00-dev.github.io";
 
 const stack = [
   { group: "Backend", items: "Java, Spring Boot, Spring Security, JPA, Python, FastAPI, SQLAlchemy" },
-  { group: "Database", items: "PostgreSQL, Redis" },
-  { group: "Infra", items: "Docker, Nginx, AWS S3 · SQS, Google Cloud, GitHub Actions" },
-  { group: "Realtime", items: "WebSocket, Redis Pub/Sub, FCM" },
-  { group: "Testing", items: "Pytest" },
+  { group: "Database", items: "PostgreSQL, Redis, Flyway" },
+  { group: "Infra", items: "Docker, Nginx, Caddy, AWS EC2 · S3 · SQS, Google Cloud, GitHub Actions" },
+  { group: "Realtime", items: "SSE, WebSocket, Redis Pub/Sub, FCM" },
+  { group: "Testing", items: "Pytest, JUnit, Testcontainers" },
 ];
 
 const credentials = [
@@ -31,11 +31,11 @@ const credentials = [
 const highlights = [
   { value: "1.2s → 178ms", label: "두 글자 검색 응답 (Keepsa 운영)" },
   { value: "TOTP 2FA", label: "운영 콘솔 2단계 인증 직접 구현" },
-  { value: "76건", label: "머지된 PR (Keepsa 46 · Union 30)" },
+  { value: "129건", label: "머지된 PR (Keepsa 52 · 불앤베어 47 · Union 30)" },
 ];
 
 // How many cases get the full write-up; the rest are listed briefly.
-const FULL_CASES: Record<string, number> = { keepsa: 4, union: 4 };
+const FULL_CASES: Record<string, number> = { keepsa: 4, "bull-and-bear": 3, union: 3 };
 
 function H2({ children }: { children: React.ReactNode }) {
   return <h2 className="mb-3 border-b border-line pb-1.5 text-[13pt] font-bold">{children}</h2>;
@@ -156,7 +156,7 @@ function ProjectSection({ p }: { p: Project }) {
       </div>
       <div className="mt-6">
         <H2>그 밖에 한 일</H2>
-        <ul className="space-y-0.5 text-[8.5pt] leading-[1.5]">
+        <ul className="columns-2 gap-6 text-[8.5pt] leading-[1.5] [&>li]:mb-1 [&>li]:break-inside-avoid">
           {brief.map((c) => (
             <li key={c.title} className="flex gap-2">
               <span className="text-faint">·</span>
@@ -197,7 +197,7 @@ export default function PrintPage() {
         </p>
         <p className="mt-1.5 text-muted">
           Spring Boot와 FastAPI로 서비스를 만들어 온 백엔드 개발자입니다. 지금은 출시를 앞둔 위치 기반 서비스
-          Keepsa의 백엔드를 개발하고 있습니다. 버그는 테스트로 먼저 재현하고, 원인을 고친 뒤 회귀 테스트를 남기는
+          Keepsa와 졸업 전시 프로젝트 불앤베어의 백엔드를 개발하고 있습니다. 버그는 테스트로 먼저 재현하고, 원인을 고친 뒤 회귀 테스트를 남기는
           방식으로 일합니다.
         </p>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
@@ -212,7 +212,7 @@ export default function PrintPage() {
           </a>
         </div>
 
-        <div className="mt-6 grid grid-cols-3 gap-3">
+        <div className="mt-5 grid grid-cols-3 gap-3">
           {highlights.map((h) => (
             <div key={h.label} className="rounded-lg border border-line p-3">
               <div className="text-[14pt] font-bold text-accent">{h.value}</div>
@@ -221,7 +221,7 @@ export default function PrintPage() {
           ))}
         </div>
 
-        <div className="mt-7">
+        <div className="mt-5">
           <H2>프로젝트</H2>
           <div className="space-y-3">
             {projects.map((p) => (
@@ -242,7 +242,7 @@ export default function PrintPage() {
           </div>
         </div>
 
-        <div className="mt-7">
+        <div className="mt-5">
           <H2>기술</H2>
           <dl className="grid grid-cols-[6.5rem_1fr] gap-x-3 gap-y-1">
             {stack.map((s) => (
@@ -254,7 +254,7 @@ export default function PrintPage() {
           </dl>
         </div>
 
-        <div className="mt-7 grid grid-cols-2 gap-8">
+        <div className="mt-5 grid grid-cols-2 gap-8">
           <div>
             <H2>자격증 · 어학</H2>
             <ul className="space-y-1">

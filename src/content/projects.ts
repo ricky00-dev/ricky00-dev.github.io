@@ -105,7 +105,7 @@ export const projects: Project[] = [
     stack: ["FastAPI", "SQLAlchemy (async)", "PostgreSQL", "Redis", "Alembic", "Pytest", "FCM", "Flutter"],
     privateNote: "출시 준비 중인 팀 프로젝트라 저장소는 비공개입니다.",
     stats: [
-      { label: "Merged PRs", value: "46" },
+      { label: "Merged PRs", value: "52" },
       { label: "두 글자 검색 (운영)", value: "1.2s → 178ms" },
       { label: "운영 콘솔 인증", value: "TOTP 2FA" },
     ],
@@ -264,6 +264,10 @@ export const projects: Project[] = [
       "음성 리뷰를 기다리다 화면을 나가면 완료 배너와 알림이 뜨지 않던 원인 두 가지 수정 (PR #225)",
       "지도 대표 핀에서 회사·접객주점 제외(서울 줌 15 기준 회사 핀 71 → 13개), 지도 조작 프레임 측정 도구 (PR #103 · #105)",
       "main에서 깨진 앱·iOS 빌드 복구 (PR #246)",
+      "기록 피드 업종 필터를 다중 선택으로 확장: 서버 category를 목록으로 바꾸되 기존 단일 값 요청과 호환, 20개·64자 상한 초과 시 422 (PR #269)",
+      "명령 한 줄로 릴리스 빌드부터 TestFlight 업로드까지 하는 배포 스크립트 작성 (PR #261)",
+      "검색 상세가 열린 채 다른 핀을 누르면 상세가 바뀌지 않던 응답 경합 버그 수정, 회귀 테스트 추가 (PR #272)",
+      "홈 검색과 자동완성 기준점을 GPS 대신 지금 보고 있는 지도 가운데로 변경 (PR #274)",
     ],
     retro: [
       {
@@ -273,6 +277,159 @@ export const projects: Project[] = [
       {
         title: "성능보다 약관이 먼저",
         body: "카카오 응답을 캐시해 응답 속도를 크게 줄였지만, 약관상 서버 저장이 허용되지 않는다는 것을 확인하고 직접 제거했습니다. 기술적으로 가능한 것과 해도 되는 것을 구분하는 계기가 됐습니다.",
+      },
+    ],
+  },
+  {
+    slug: "bull-and-bear",
+    name: "불앤베어",
+    category: "졸업 전시 · AI 서비스",
+    headline: "AI 토론을 심판하는 모의투자 교육 서비스",
+    contribution:
+      "Spring API 전체(코드의 약 93%)와 웹(약 82%), 배포·CI·운영 스크립트, AI 워커 초기 초안과 Spring↔워커 API 계약 작성",
+    outcome:
+      "머지된 PR **47건**, 통합 테스트 포함 API 테스트 **59개**, 같은 종목 동시 요청 **6건 → 토론 1건** 보장, EC2 배포 완료",
+    links: [],
+    coverPhones: ["/images/bnb/home.jpg", "/images/bnb/debate.jpg"],
+    gallery: [
+      { src: "/images/bnb/home.jpg", caption: "홈. 바로 읽을 수 있는 토론 목록과 종목 검색.", phone: true },
+      { src: "/images/bnb/debate.jpg", caption: "매수·매도 AI 토론. 내가 판정하기 전까지 중재자 판정은 봉인됩니다.", phone: true },
+      { src: "/images/bnb/quiz.jpg", caption: "저장된 과거 토론을 LLM 호출 없이 다시 보는 타임머신 퀴즈.", phone: true },
+    ],
+    architecture: [
+      {
+        label: "Client",
+        nodes: [
+          { name: "React 웹 (PWA)", note: "토론 시청 · 판정 · 퀴즈 · 성적표", mine: true },
+          { name: "전시용 화면", note: "노트북 전체 화면", mine: true },
+        ],
+      },
+      {
+        label: "API",
+        nodes: [
+          { name: "Spring Boot", note: "판정 봉인 · 채점 · SSE 중계 · 비용 상한", mine: true },
+          { name: "스케줄러", note: "채점 · 사전 실행 · 백테스트", mine: true },
+          { name: "카카오 로그인", note: "게스트 기록 승계", mine: true },
+        ],
+      },
+      {
+        label: "AI Worker",
+        nodes: [
+          { name: "FastAPI 서버 골격", note: "엔드포인트 · 인증 · 오류 형식", mine: true },
+          { name: "LangGraph 토론 엔진", note: "매수·매도 6발언 + 중재자 (팀원 담당)" },
+          { name: "Claude Sonnet", note: "Anthropic API" },
+        ],
+      },
+      {
+        label: "Data",
+        nodes: [
+          { name: "PostgreSQL", note: "토론 이벤트 로그 · 판정 · 채점", mine: true },
+          { name: "KRX · OpenDART · 네이버 뉴스", note: "워커 입력 데이터" },
+        ],
+      },
+      {
+        label: "Infra",
+        nodes: [
+          { name: "EC2 · Docker Compose · Caddy", note: "HTTPS · 헬스 체크 · 백업", mine: true },
+          { name: "GitHub Actions", note: "변경 폴더별 테스트", mine: true },
+        ],
+      },
+    ],
+    tagline: "매수·매도 AI 에이전트의 토론을 보고 먼저 판정한 뒤, 실제 주가로 채점받는 서비스",
+    period: "2026.10 – 진행 중",
+    team: "졸업 전시 · 4인",
+    role: "Backend · Web · 배포",
+    stack: ["Java", "Spring Boot", "JPA", "PostgreSQL", "Flyway", "SSE", "Testcontainers", "React", "TypeScript", "FastAPI", "Docker", "AWS EC2"],
+    privateNote: "졸업 전시 팀 프로젝트라 저장소는 비공개입니다.",
+    stats: [
+      { label: "Merged PRs", value: "47" },
+      { label: "API 테스트", value: "59개" },
+      { label: "Spring API 코드 비중", value: "93%" },
+    ],
+    summary:
+      "Python AI 워커가 만든 매수·매도 토론을 Spring 서버가 SSE로 중계하고, 사용자가 판정을 낸 뒤에만 AI 중재자의 판정을 공개합니다. 3·7거래일 뒤 코스피 대비 초과수익으로 사용자와 AI를 같은 규칙으로 채점합니다.",
+    cases: [
+      {
+        title: "판정 전에는 AI 판정이 새지 않게",
+        tag: "Backend",
+        problem: "사용자가 먼저 판정해야 하는 서비스인데, 워커는 중재자 판정을 토론 이벤트에 그대로 담아 보냈습니다.",
+        solution: [
+          "DB에는 원본 이벤트를 순번(seq)과 함께 저장하고, 브라우저로 보낼 때는 완료 이벤트에서 판정 내용을 뺀 '봉인' 이벤트로 바꿔 보냅니다.",
+          "판정을 제출한 뒤에만 공개 API로 판정을 보여주고, 판정은 한 번만 받습니다.",
+          "워커 쪽에서 실수해도 Spring 한 곳에서 막히도록 책임을 모았습니다.",
+        ],
+        result: "스트림에 판정 내용이 없는지, 봉인 → 판정 → 공개 순서가 지켜지는지 통합 테스트로 확인했습니다.",
+        refs: "PR #2",
+      },
+      {
+        title: "같은 데이터면 토론을 다시 돌리지 않기",
+        tag: "Performance",
+        problem:
+          "같은 종목을 동시에 누르면 토론이 두 번 돌아 LLM 비용이 두 번 나갔고, 날짜를 재사용 기준으로 쓰다 보니 자정이 지나면 재사용이 끊겼습니다.",
+        solution: [
+          "재사용 기준을 (종목, 데이터 기준일)로 바꾸고 부분 유니크 인덱스로 강제했습니다.",
+          "동시 요청은 유니크 위반을 잡아 먼저 만들어진 토론을 재사용합니다.",
+          "장 마감 뒤 정해진 종목을 미리 돌려 두는 스케줄러를 붙였습니다(동시 2개).",
+        ],
+        result: "같은 종목 동시 요청 **6건**이 토론 **1건**으로 합쳐지는 것을 테스트로 확인했습니다.",
+        refs: "PR #7 · #8",
+        diff: [{ label: "토론 재사용 기준", before: "(종목, 생성일 KST)", after: "(종목, 데이터 기준일)" }],
+      },
+      {
+        title: "끊겨도 이어 보는 토론 중계",
+        tag: "Realtime",
+        problem: "토론은 몇 분이 걸리고, 그동안 워커와 브라우저 연결이 모두 끊길 수 있었습니다.",
+        solution: [
+          "워커 → Spring → 브라우저를 SSE로 잇고, 모든 이벤트를 순번과 함께 DB에 쌓습니다.",
+          "워커 연결이 끊기면 마지막 순번부터 다시 구독합니다(지수 백오프, 최대 5회).",
+          "브라우저는 Last-Event-ID부터 이어 받고, 끝난 토론은 DB에서 그대로 재생합니다.",
+        ],
+        result: "끝난 토론도 진행 중인 토론처럼 재생됩니다. 마지막 발언이 빠지던 경합 문제는 이후 팀원이 고쳤습니다(PR #50).",
+        refs: "PR #2",
+      },
+      {
+        title: "LLM 비용 상한",
+        tag: "Backend",
+        problem: "팀 예산은 월 $200인데, 사용자 한 명이 크레딧을 다 써 버릴 수 있었습니다.",
+        solution: [
+          "워커가 보고한 사용량을 토론별로 저장하고, 비용 값이 없으면 모델별 단가로 계산합니다.",
+          "사용자별 하루 비용과 횟수 상한을 두되, 이미 있는 토론을 다시 보는 것은 상한과 관계없이 허용합니다.",
+          "사용량이 아직 들어오지 않은 진행 중 토론은 추정 비용으로 계산하고, 추정치는 팀 실측에 맞춰 조정했습니다.",
+        ],
+        result: "토론 1건 추정 비용을 팀 실측(약 $0.5)에 맞춰 $2.0에서 $0.6으로 보정했습니다.",
+        refs: "PR #7 · #53 · #68",
+      },
+      {
+        title: "뉴스에 섞인 미래 정보 차단",
+        tag: "Data",
+        problem: "11/6 종가 기준 토론에 11/9 기사가 들어가 발언에 인용됐습니다. 뉴스만 현재 시각까지 가져오고 있었습니다.",
+        solution: [
+          "뉴스 검색 범위의 끝을 '현재'와 '기준일 장 마감(15:30 KST)' 중 이른 쪽으로 바꿨습니다.",
+          "공급자가 범위를 무시해도 데이터를 모으는 단계에서 한 번 더 잘라냅니다.",
+        ],
+        result: "기준일 장 마감 뒤 기사가 빠지는지 확인하는 테스트를 추가했습니다.",
+        refs: "PR #46",
+      },
+    ],
+    alsoDid: [
+      "3·7거래일 뒤 코스피 대비 채점 스케줄러: 거래일 달력 없이 실제 시세가 있는 날짜로 계산 (PR #4)",
+      "저장된 토론을 LLM 호출 없이 다시 보는 타임머신 퀴즈 (PR #16)",
+      "토론 없이 혼자 판단하는 AI와 비교하는 실험 조건과 AI 성적표 API (PR #23)",
+      "카카오 로그인과 게스트 기록 병합 (PR #41)",
+      "과거 기준일 백테스트 실행기와 기준일을 무시하는 응답 감지 (PR #65)",
+      "헬스 체크 운영 감시, 백업·복구 스크립트 (PR #31)",
+      "변경된 폴더만 테스트하는 GitHub Actions CI (PR #29)",
+      "HTTPS 프록시 뒤에서 나던 CORS 403 수정 (PR #59)",
+      "Docker Compose와 Caddy로 EC2 배포 (PR #10)",
+    ],
+    retro: [
+      {
+        title: "비교 실험 데이터를 아직 못 모았다",
+        body: "토론과 단일 AI의 적중률을 비교하는 성적표는 만들었지만, 새 토론 엔진의 실패가 잦아 정식 운용을 미뤘습니다. 토론 완주 시간도 아직 측정하지 못했습니다. 지금은 백테스트로 표본을 모으고 있습니다.",
+      },
+      {
+        title: "비용 상한이 추정에 기대고 있다",
+        body: "하루 예산은 추정 비용으로 입장을 막는 장치라 실제 지출을 강제로 막지는 못합니다. 요청이 한꺼번에 몰리면 토론 1~2건만큼 넘을 수 있습니다. 워커 쪽 비용 장부와 프롬프트 캐싱은 아직 켜지 않았습니다.",
       },
     ],
   },
