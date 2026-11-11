@@ -9,8 +9,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "조성빈 · Backend Developer",
-  description: "백엔드 개발자 조성빈의 포트폴리오",
+  title: "조성빈 · Backend · Product Engineer",
+  description: "백엔드를 중심으로 서비스를 끝까지 만드는 개발자 조성빈의 포트폴리오",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="mx-auto max-w-6xl px-5 sm:px-8">{children}</div>
         <footer className="mt-20 border-t border-line">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-8 text-sm text-faint sm:px-8">
-            <span>조성빈 · Backend Developer</span>
+            <span>조성빈 · Backend · Product Engineer</span>
             <span className="flex gap-4">
               <a href="https://github.com/ricky00-dev" className="hover:text-fg">
                 GitHub ↗

@@ -16,6 +16,7 @@ const SITE = "https://ricky00-dev.github.io";
 
 const stack = [
   { group: "Backend", items: "Java, Spring Boot, Spring Security, JPA, Python, FastAPI, SQLAlchemy" },
+  { group: "Frontend · App", items: "React, TypeScript, Next.js, Tailwind CSS, Flutter" },
   { group: "Database", items: "PostgreSQL, Redis, Flyway" },
   { group: "Infra", items: "Docker, Nginx, Caddy, AWS EC2 · S3 · SQS, Google Cloud, GitHub Actions" },
   { group: "Realtime", items: "SSE, WebSocket, Redis Pub/Sub, FCM" },
@@ -190,14 +191,14 @@ export default function PrintPage() {
       `}</style>
 
       <section>
-        <p className="text-[10pt] font-medium text-muted">Backend Developer</p>
+        <p className="text-[10pt] font-medium text-muted">Backend · Product Engineer</p>
         <h1 className="mt-1 text-[28pt] leading-tight font-bold tracking-tight">조성빈</h1>
         <p className="mt-3 text-[12pt] leading-relaxed">
-          검색·인증·운영까지, <span className="font-semibold text-accent">서비스의 뒷단</span>을 만듭니다.
+          백엔드부터 화면과 배포까지, 서비스를 <span className="font-semibold text-accent">끝까지</span> 만듭니다.
         </p>
         <p className="mt-1.5 text-muted">
-          Spring Boot와 FastAPI로 서비스를 만들어 온 백엔드 개발자입니다. 지금은 출시를 앞둔 위치 기반 서비스
-          Keepsa와 졸업 전시 프로젝트 불앤베어의 백엔드를 개발하고 있습니다. 버그는 테스트로 먼저 재현하고, 원인을 고친 뒤 회귀 테스트를 남기는
+          Spring Boot와 FastAPI 백엔드를 중심으로, 웹과 앱 화면, 배포와 운영까지 직접 만들어 왔습니다. 지금은
+          출시를 앞둔 위치 기반 서비스 Keepsa와 졸업 전시 프로젝트 불앤베어를 개발하고 있습니다. 버그는 테스트로 먼저 재현하고, 원인을 고친 뒤 회귀 테스트를 남기는
           방식으로 일합니다.
         </p>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1">
@@ -221,9 +222,9 @@ export default function PrintPage() {
           ))}
         </div>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <H2>프로젝트</H2>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {projects.map((p) => (
               <div key={p.slug} className="grid grid-cols-[6.5rem_1fr] gap-3">
                 <div>
@@ -242,9 +243,9 @@ export default function PrintPage() {
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-4">
           <H2>기술</H2>
-          <dl className="grid grid-cols-[6.5rem_1fr] gap-x-3 gap-y-1">
+          <dl className="grid grid-cols-[6.5rem_1fr] gap-x-3 gap-y-0.5">
             {stack.map((s) => (
               <div key={s.group} className="contents">
                 <dt className="text-faint">{s.group}</dt>
@@ -254,7 +255,7 @@ export default function PrintPage() {
           </dl>
         </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-8">
+        <div className="mt-4 grid grid-cols-2 gap-8">
           <div>
             <H2>자격증 · 어학</H2>
             <ul className="space-y-1">

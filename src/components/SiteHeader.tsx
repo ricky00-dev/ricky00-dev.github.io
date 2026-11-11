@@ -40,7 +40,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="flex items-baseline gap-2">
           <span className="font-bold tracking-tight">조성빈</span>
-          <span className="hidden text-sm text-faint sm:inline">Backend Developer</span>
+          <span className="hidden text-sm text-faint sm:inline">Backend · Product Engineer</span>
         </Link>
         <nav className="flex items-center text-sm">
           {nav.map((n) => (

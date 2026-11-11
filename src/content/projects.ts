@@ -101,7 +101,7 @@ export const projects: Project[] = [
     tagline: "SNS·AI로 장소를 발견하고 동선을 기록·공유하는 위치 기반 서비스",
     period: "2026.07 – 진행 중",
     team: "팀 프로젝트",
-    role: "Backend",
+    role: "Backend · 앱 일부",
     stack: ["FastAPI", "SQLAlchemy (async)", "PostgreSQL", "Redis", "Alembic", "Pytest", "FCM", "Flutter"],
     privateNote: "출시 준비 중인 팀 프로젝트라 저장소는 비공개입니다.",
     stats: [
